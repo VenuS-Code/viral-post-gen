@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import PostCard from './components/PostCard.jsx'
+import FBScheduler from './components/FBScheduler.jsx'
 
 // 10 distinct gradient pairs — one per card
 const PALETTES = [
@@ -349,6 +350,7 @@ export default function App() {
   const [apiKey, setApiKey] = useState('')
   const [tempKey, setTempKey] = useState('')
   const [posts, setPosts] = useState([])
+  const cardRefs = useRef({})
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState('')
   const [error, setError] = useState('')
@@ -514,9 +516,16 @@ export default function App() {
                   g1={PALETTES[i][0]}
                   g2={PALETTES[i][1]}
                   niche={niche}
+                  onCardRef={el => { cardRefs.current[i] = el }}
                 />
               ))}
             </div>
+            <FBScheduler
+              posts={posts}
+              cardRefs={cardRefs}
+              niche={niche}
+              groqKey={apiKey}
+            />
           </>
         )}
 

@@ -4,7 +4,7 @@ import html2canvas from 'html2canvas'
 // Font loaded in index.html — Bebas Neue for headline, Nunito for body
 const FONT_URL = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap'
 
-export default function PostCard({ post, index, g1, g2, niche }) {
+export default function PostCard({ post, index, g1, g2, niche, onCardRef }) {
   const [copied, setCopied]     = useState(false)
   const [expanded, setExpanded] = useState(false)
   const [hovered, setHovered]   = useState(false)
@@ -52,7 +52,7 @@ export default function PostCard({ post, index, g1, g2, niche }) {
 
       {/* ── Square Social-Media Card ── */}
       <div
-        ref={cardRef}
+        ref={el => { cardRef.current = el; onCardRef && onCardRef(el) }}
         style={{
           width: '100%',
           aspectRatio: '1 / 1',
